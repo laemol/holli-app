@@ -3,8 +3,9 @@ import { ExpoConfigView } from '@expo/samples';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import { StyleSheet } from 'react-native';
+import { encode } from "base-64";
 
-const PUSH_REGISTRATION_ENDPOINT = 'https://80ecbbe5.ngrok.io/api/v4/pushnotification';
+const PUSH_REGISTRATION_ENDPOINT = 'https://test.backend.holliapp.com/api/v4/pushnotification';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -22,13 +23,14 @@ export default class SettingsScreen extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'x-authorization': '539169d340eda42d50c384efc2f9aa227eabcce7'
+        'x-authorization': '539169d340eda42d50c384efc2f9aa227eabcce7',
+        'Authorization': 'Basic ' + encode('hollidev' + ":" + 'hollidev03847'),
       },
       body: JSON.stringify({
         
           push_token: token,
           date: '2019-12-09',
-          message: 'test message'
+          message: 'test message from work'
         
       }),
     });
@@ -38,6 +40,7 @@ export default class SettingsScreen extends React.Component {
 
   componentDidMount() {
     this.registerForPushNotificationsAsync();
+    
   }
 
   render() {
